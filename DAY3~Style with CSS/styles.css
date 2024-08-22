@@ -1,0 +1,12 @@
+.container{
+border: 1px slod black;
+background-color: aliceblue;
+width: 650px;
+padding: 10px 15px;
+border-radius: 3px ;
+}
+.gradient-text {
+  background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
+  -webkit-background-clip: text;
+  color: transparent;
+}
