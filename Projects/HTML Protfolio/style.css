@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Roboto;
+}
+html , body{
+    height: 100%;
+    width: 100%;
+}
+header {
+  background-color: #b4cde6;
+  text-align: center;
+  padding: 20px;
+}
+
+header img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+header p {
+  font-size: 18px;
+  color: #555;
+}
+
+main{
+  padding: 20px;
+  border-radius: 3px ;
+  background-color: #f5f5f5;
+}
+
+section {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: justify;
+  background-color: white;
+  border-radius: 3px ;
+  padding: 20px;
+}
+#aboutme h2{
+margin-bottom: 5px;
+line-height: 1.5;
+}
+
+#Skills h2{
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+#Skills ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+#Skills li{
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #2cb9f1;
+  margin-bottom: 10px;
+}
+
+footer{
+  text-align: center;
+  padding: 10px;
+  background-color: #b4cde6;
+}
+
+footer h2{
+  margin-bottom: 10px;
+}
+
+a{
+  color: #000 !important;
+  text-decoration: none;
+  padding: 15px 10px;
+
+}
