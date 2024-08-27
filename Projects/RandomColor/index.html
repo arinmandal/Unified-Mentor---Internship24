@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Roboto;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        height: 100vh;
+        background-color: #333;
+        color: #fff;
+      }
+      #start,
+      #stop {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+      #start:hover,
+      #stop:hover {
+        background-color: #555;
+        color: #fff;
+      }
+      div {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Start should change the background every second</h1>
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+    </div>
+
+    <script>
+      //! generate random color;
+
+      const randomColor = () => {
+        const hex = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += hex[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
+
+      // console.log(randomColor());
+      let interVal;
+      let startBtn = document.getElementById("start");
+      let stopBtn = document.getElementById("stop");
+
+      const startChangeColor = () => {
+        interVal = setInterval(changeBGcolor, 1000);
+        function changeBGcolor() {
+          document.body.style.backgroundColor = randomColor();
+        }
+        startBtn.style.backgroundColor = "green";
+        startBtn.style.color = "white";
+        stopBtn.style.backgroundColor = "white";
+        stopBtn.style.color = "black";
+      };
+
+      const stopChangeColor = () => {
+        clearInterval(interVal);
+        interVal = null;
+
+        stopBtn.style.backgroundColor = "red";
+        stopBtn.style.backgroundColor = "red";
+        startBtn.style.backgroundColor = "white";
+        startBtn.style.color = "black";
+      };
+
+      startBtn.addEventListener("click", startChangeColor);
+      stopBtn.addEventListener("click", stopChangeColor);
+    </script>
+  </body>
+</html>
