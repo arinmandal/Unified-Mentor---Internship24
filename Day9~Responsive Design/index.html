@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Design</title>
+    <style>
+      /* Basic Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+      }
+
+      /* Basic Responsive Layout */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Responsive Typography */
+      h1 {
+        font-size: clamp(24px, 5vw, 48px);
+      }
+
+      p {
+        font-size: clamp(16px, 2vw, 20px);
+      }
+
+      /* Responsive Image */
+      .responsive-image {
+        width: 100%;
+        height: auto;
+      }
+
+      /* Responsive Grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      /* Media Queries */
+      @media (max-width: 768px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Flexbox for Layout */
+      .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .flex-item {
+        flex: 1 1 300px;
+        margin: 10px;
+      }
+
+      /* Advanced: CSS Grid for Complex Layouts */
+      .advanced-grid {
+        display: grid;
+        grid-template-areas:
+          "header header header"
+          "nav main aside"
+          "footer footer footer";
+        grid-template-columns: 200px 1fr 200px;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+      }
+
+      @media (max-width: 768px) {
+        .advanced-grid {
+          grid-template-areas:
+            "header"
+            "nav"
+            "main"
+            "aside"
+            "footer";
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Responsive Design</h1>
+      <p>This page demonstrates various responsive design techniques.</p>
+
+      <h2>Responsive Image</h2>
+      <img
+        src="https://via.placeholder.com/1200x600"
+        alt="Responsive Image"
+        class="responsive-image"
+      />
+
+      <h2>Responsive Grid</h2>
+      <div class="grid">
+        <div>Grid Item 1</div>
+        <div>Grid Item 2</div>
+        <div>Grid Item 3</div>
+        <div>Grid Item 4</div>
+      </div>
+
+      <h2>Flexbox Layout</h2>
+      <div class="flex-container">
+        <div class="flex-item">Flex Item 1</div>
+        <div class="flex-item">Flex Item 2</div>
+        <div class="flex-item">Flex Item 3</div>
+      </div>
+
+      <h2>Advanced Grid Layout</h2>
+      <div class="advanced-grid">
+        <header style="grid-area: header; background: #ddd">Header</header>
+        <nav style="grid-area: nav; background: #ccc">Navigation</nav>
+        <main style="grid-area: main; background: #bbb">Main Content</main>
+        <aside style="grid-area: aside; background: #aaa">Sidebar</aside>
+        <footer style="grid-area: footer; background: #999">Footer</footer>
+      </div>
+    </div>
+  </body>
+</html>
