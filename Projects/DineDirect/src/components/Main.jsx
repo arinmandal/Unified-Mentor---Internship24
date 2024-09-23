@@ -5,13 +5,14 @@ import RestaurantCard from "./RestaurantCard";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import FilterComponent from "./FilterComponent";
-import rawdata from "../Utils/rawdata";
+import axios from "axios";
+import { RESTAURANT_API } from "../Utils/constantFile";
+import { Link } from "react-router-dom";
 
 export const Main = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
-  // const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -28,15 +29,16 @@ export const Main = () => {
 
   //* Fetch data from API
   const fetchData = async () => {
-    const data = await fetch(
-      "https://corsproxy.io/?https://www.swiggy.com/mapi/homepage/getCards?lat=22.5743545&lng=88.3628734",
-    );
-    const json = await data.json();
-    const restaurantList =
-      json.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle
-        ?.restaurants;
-    setRestaurants(restaurantList);
-    setFilteredRestaurants(restaurantList);
+    try {
+      const response = await axios.get(RESTAURANT_API);
+      const restaurantList =
+        response?.data?.data?.success?.cards[3]?.gridWidget?.gridElements
+          ?.infoWithStyle?.restaurants;
+      setRestaurants(restaurantList);
+      setFilteredRestaurants(restaurantList);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   //* FilterComponent functionality
@@ -106,7 +108,16 @@ export const Main = () => {
                 ))
             : // Display actual restaurant cards when data is loaded
               filteredRestaurants.map(restaurant => (
-                <RestaurantCard key={restaurant.info.id} {...restaurant.info} />
+                <Link
+                  to={"/restaurants/" + restaurant.info.id}
+                  key={restaurant.info.id}
+                  className='block'
+                >
+                  <RestaurantCard
+                    key={restaurant.info.id}
+                    {...restaurant.info}
+                  />
+                </Link>
               ))}
         </div>
       </section>
