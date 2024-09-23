@@ -1,4 +1,4 @@
-import IMAGE_CDN from "../Utils/constantFile";
+import { IMAGE_CDN } from "../Utils/constantFile";
 
 export const RestaurantCard = ({
   name,
