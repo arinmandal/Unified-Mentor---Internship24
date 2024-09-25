@@ -1,42 +1,40 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { getMenuApi} from "../Utils/constantFile";
+import { useNavigate } from "react-router-dom";
 import Error from "../Pages/Error";
 import { IMAGE_CDN } from "../Utils/constantFile";
 import { useParams } from "react-router-dom";
+import useRestaurantMenu from "../Utils/hooks/useRestaurantMenu";
 const RestaurantMenu = () => {
-  const [restaurantData, setRestaurantData] = useState(null);
   const [error, setError] = useState(null);
 
-  const {resId} = useParams();
-  useEffect(() => {
-    const fetchMenu = async () => {
-      try {
-        const response = await axios.get(getMenuApi(resId));
-        setRestaurantData(response);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchMenu();
-  }, []);
-
+  const navigate = useNavigate();
+  const { resId } = useParams();
+  const resInfo = useRestaurantMenu(resId);
   if (error) {
     return <Error />;
   }
 
-  if (restaurantData === null) {
+  if (resInfo === null) {
     return <div>Loading...</div>; // Or display a loading spinner
   }
 
-  const { name, avgRating, costForTwoMessage, cuisines, areaName, sla } =
-    restaurantData.data?.data?.cards[2]?.card?.card?.info;
-
-  console.log()
-  const { itemCards } = restaurantData?.data?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+  const { name, avgRating, costForTwoMessage, cuisines, areaName, sla, city } =
+  resInfo.data?.data?.cards[2]?.card?.card?.info;
+  const { itemCards } =
+  resInfo?.data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR
+      ?.cards[2]?.card?.card;
   return (
     <div className='container mx-auto px-4 py-8'>
+      <div className='pageView cursor-pointer text-xs px-4 text-slate-500 space-x-1 mb-6'>
+        <span
+          className="after:content-['/'] hover:text-black"
+          onClick={() => navigate("/")}
+        >
+          Home
+        </span>
+        <span className="after:content-['/'] hover:text-black">{city}</span>
+        <span className='hover:text-black'>{name}</span>
+      </div>
       <div className='container mx-auto p-4'>
         <h1 className='text-3xl font-bold mb-4'>{name}</h1>
         <div className='bg-white rounded-lg shadow-md p-4'>
