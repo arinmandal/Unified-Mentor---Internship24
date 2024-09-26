@@ -1,73 +1,21 @@
+import useRestaurantFilter from "../Utils/hooks/useRestaurantFilter"; // New import
 import SearchCom from "./SearchCom";
 import ShimmarUI from "./ShimmarUI";
 import { HERO_IMAGE } from "../Utils/constantFile";
 import RestaurantCard from "./RestaurantCard";
 import Footer from "./Footer";
-import { useEffect, useState } from "react";
 import FilterComponent from "./FilterComponent";
-import axios from "axios";
-import { RESTAURANT_API } from "../Utils/constantFile";
 import { Link } from "react-router-dom";
 
 export const Main = () => {
-  const [restaurants, setRestaurants] = useState([]);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const {
+    activeFilter,
+    searchText,
+    handleSearch,
+    handleFilterClick,
+    filteredRestaurants,
+  } = useRestaurantFilter(); // Use custom hook
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  //* Search Functionality
-  const handleSearch = term => {
-    // ... Perform actions with the search term (e.g., fetch data)
-    const filterData = restaurants.filter(data =>
-      data.info.name.toLowerCase().includes(term.toLowerCase()),
-    );
-    setFilteredRestaurants(filterData);
-  };
-
-  //* Fetch data from API
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(RESTAURANT_API);
-      const restaurantList =
-        response?.data?.data?.success?.cards[3]?.gridWidget?.gridElements
-          ?.infoWithStyle?.restaurants;
-      setRestaurants(restaurantList);
-      setFilteredRestaurants(restaurantList);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  //* FilterComponent functionality
-  const handleFilterClick = filterType => {
-    const filteredResults = restaurants.filter(restaurant => {
-      switch (filterType) {
-        case "Rating 4.5+":
-          return restaurant.info.avgRating >= 4.5;
-        case "Fast Delivery":
-          return restaurant.info.sla.deliveryTime <= 20;
-        case "Pure Veg":
-          return restaurant.info.veg === true;
-        case "Cost: Low to High":
-          return true; // We'll sort this later
-        case "Cost: High to Low":
-          return true; // We'll sort this later
-        default:
-          return true;
-      }
-    });
-
-    if (filterType === "Cost: Low to High") {
-      filteredResults.sort((a, b) => a.info.costForTwo - b.info.costForTwo);
-    } else if (filterType === "Cost: High to Low") {
-      filteredResults.sort((a, b) => b.info.costForTwo - a.info.costForTwo);
-    }
-    setFilteredRestaurants(filteredResults);
-    setActiveFilter(filterType);
-  };
   return (
     <main className='w-full min-h-screen bg-gradient-to-b from-blue-100 to-white'>
       <section className='max-w-7xl mx-auto pt-8 px-4 sm:px-6 md:px-8'>
