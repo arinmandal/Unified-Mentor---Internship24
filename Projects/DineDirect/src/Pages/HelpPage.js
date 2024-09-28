@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const HelpPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="bg-gray-100 dark:bg-gray-500 min-h-screen p-8 text-gray-700 dark:text-gray-200 text-center">
+    <div className="bg-mainBg min-h-screen p-8 text-gray-700 text-center">
       <h1
         onClick={() => navigate('/')}
         className='text-center text-2xl sm:text-3xl font-bold text-orange-500 hover:cursor-pointer'>
