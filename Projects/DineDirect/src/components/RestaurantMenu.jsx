@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import ResCategoryAccordion from "./ResCategoryAccordion";
 import { useNavigate } from "react-router-dom";
+import ShimmarMenuItems from "./ShimmerMenuItems"
 import Error from "../Pages/Error";
-import { IMAGE_CDN } from "../Utils/constantFile";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../Utils/hooks/useRestaurantMenu";
 const RestaurantMenu = () => {
@@ -15,16 +16,23 @@ const RestaurantMenu = () => {
   }
 
   if (resInfo === null) {
-    return <div>Loading...</div>; // Or display a loading spinner
+    return <ShimmarMenuItems/>;
   }
 
   const { name, avgRating, costForTwoMessage, cuisines, areaName, sla, city } =
-  resInfo.data?.data?.cards[2]?.card?.card?.info;
+    resInfo.data?.data?.cards[2]?.card?.card?.info;
   const { itemCards } =
-  resInfo?.data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR
-      ?.cards[2]?.card?.card;
+    resInfo?.data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]
+      ?.card?.card;
+
+  const itemCategory =
+    resInfo?.data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      c =>
+        c.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+    );
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className='container mx-auto px-4 py-8'>    
       <div className='pageView cursor-pointer text-xs px-4 text-slate-500 space-x-1 mb-6'>
         <span
           className="after:content-['/'] hover:text-black"
@@ -61,43 +69,8 @@ const RestaurantMenu = () => {
       {/* Rest of the menu components */}
       <div className='container mx-auto mt-8'>
         <h1 className='text-2xl font-bold text-center'>Menu</h1>
-      </div>
-      <div className='mt-4'>
-        {itemCards.map(item => (
-          <div
-            key={item.card.info.id}
-            className='bg-white rounded-lg shadow-md p-4 mb-4 flex items-center justify-between'
-          >
-            <div className='Description'>
-              <h1 className='text-lg font-bold'>{item.card.info.name}</h1>
-              <div className='flex flex-col items-start'>
-                <span className='mr-2'>₹{item.card.info.price / 100}</span>
-                {item.card.info.price && (
-                  <div className='text-gray-600'>
-                    <span className='font-medium'>
-                      ⭐{item?.ratings?.aggregatedRating?.rating}
-                    </span>
-                  </div>
-                )}
-                <p className='text-sm mb-2 text-gray-600 max-w-[40%]'>
-                  {item.card.info.description}
-                </p>
-              </div>
-            </div>
-
-            <div className='flex flex-col items-center'>
-              <div className='w-48'>
-                <img
-                  src={IMAGE_CDN + item.card.info.imageId}
-                  alt={item.card.info.name}
-                  className='w-full object-cover rounded-md'
-                />
-              </div>
-              <button className='bg-green-500 text-white font-bold py-2 px-4 rounded-md mt-2'>
-                ADD
-              </button>
-            </div>
-          </div>
+        {itemCategory.map(category => (
+          <ResCategoryAccordion data={category?.card?.card} />
         ))}
       </div>
     </div>
