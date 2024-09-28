@@ -6,6 +6,7 @@ import RestaurantCard from "./RestaurantCard";
 import Footer from "./Footer";
 import FilterComponent from "./FilterComponent";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../Utils/hooks/useOnlineStatus";
 
 export const Main = () => {
   const {
@@ -13,17 +14,29 @@ export const Main = () => {
     searchText,
     handleSearch,
     handleFilterClick,
-    filteredRestaurants,
+    filteredRestaurants = [],
   } = useRestaurantFilter(); // Use custom hook
 
+  const onlineStatus  = useOnlineStatus();
+
+  if (onlineStatus === false)
+    return (
+      <div className="bg-red-500 text-white text-center p-4">
+        <h1 className="font-bold">You are offline!</h1>
+        <p>Please check your internet connection.</p>
+      </div>
+    );
+
+  const loadingShimmer = Array(12).fill(<ShimmarUI />); // Pre-render shimmer UI
+
   return (
-    <main className='w-full min-h-screen bg-gradient-to-b from-blue-100 to-white'>
-      <section className='max-w-7xl mx-auto pt-8 px-4 sm:px-6 md:px-8'>
+    <main className='w-full min-h-screen bg-mainBg'>
+      <section className='max-w-7xl mx-auto pt-4 px-2 sm:px-6 md:px-8'>
         <div className='relative'>
           <img
             src={HERO_IMAGE}
             alt='Delicious food spread'
-            className='w-full h-[400px] object-cover rounded-lg shadow-lg'
+            className='w-full h-[250px] object-cover rounded-lg shadow-lg'
           />
           <div className='absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white rounded-lg'>
             <h1 className='text-4xl sm:text-5xl font-bold mb-4 text-center'>
@@ -47,13 +60,11 @@ export const Main = () => {
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
           {filteredRestaurants.length === 0
             ? // Display Shimmer UI while loading
-              Array(12)
-                .fill()
-                .map((_, index) => (
-                  <div key={index} className='col-span-1'>
-                    <ShimmarUI />
-                  </div>
-                ))
+              loadingShimmer.map((shimmer, index) => (
+                <div key={index} className='col-span-1'>
+                  {shimmer}
+                </div>
+              ))
             : // Display actual restaurant cards when data is loaded
               filteredRestaurants.map(restaurant => (
                 <Link
