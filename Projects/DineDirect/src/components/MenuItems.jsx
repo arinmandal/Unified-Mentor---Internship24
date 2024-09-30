@@ -1,5 +1,13 @@
 import { IMAGE_CDN } from "../Utils/constantFile";
+import { useDispatch } from "react-redux";
+import { addItems } from "../ReduxStore/cartSlice";
+
 const MenuItems = ({ items }) => {
+  const dispatch = useDispatch();
+  const handleAddItems = (item) => {
+    dispatch(addItems(item));
+  }
+
   return (
     <>
       <div className=''>
@@ -11,7 +19,12 @@ const MenuItems = ({ items }) => {
             <div className='Description'>
               <h1 className='text-lg font-bold'>{item.card.info.name}</h1>
               <div className='flex flex-col items-start'>
-                <span className='mr-2'>₹{item.card.info.price ? item.card.info.price / 100 : item.card.info.defaultPrice / 100 }</span>
+                <span className='mr-2'>
+                  ₹
+                  {item.card.info.price
+                    ? item.card.info.price / 100
+                    : item.card.info.defaultPrice / 100}
+                </span>
                 {item.card.info.price && (
                   <div className='text-gray-600'>
                     <span className='font-medium'>
@@ -33,7 +46,10 @@ const MenuItems = ({ items }) => {
                   className='w-full object-cover rounded-md'
                 />
               </div>
-              <button className='bg-green-500 text-white font-bold py-2 px-4 rounded-md mt-2'>
+              <button
+                className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-2'
+                onClick={() => handleAddItems(item)}
+              >
                 ADD
               </button>
             </div>
