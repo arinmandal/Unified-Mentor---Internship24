@@ -7,7 +7,7 @@ const HelpPage = () => {
       <h1
         onClick={() => navigate('/')}
         className='text-center text-2xl sm:text-3xl font-bold text-orange-500 hover:cursor-pointer'>
-        Dine<span className='text-gray-800'>Direct <span className='text-white'>Help</span></span>
+        Dine<span className='text-gray-800'>Direct <span className='text-gray-400'>Help</span></span>
       </h1>
       <p className="text-lg mb-8">
         Welcome to DineDirect! We're here to help you navigate our food
