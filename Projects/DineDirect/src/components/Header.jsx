@@ -6,8 +6,8 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
-
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,6 +15,11 @@ export const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   const navigate = useNavigate();
+  // Subscribing to the redux store using useSelector hooks
+
+  const cartItems = useSelector((store) => store.cart.items);
+  const cartCount = cartItems.length;
+
   return (
     <header className='w-full px-4 sm:px-6 py-4 sm:py-5 bg-white shadow-md'>
       <nav className='container mx-auto'>
@@ -39,8 +44,12 @@ export const Header = () => {
                     className: "mr-2",
                   })}
                   {item}
+                  {item === "Cart" && cartCount > 0 && ( // Display count if it's greater than 0
+                    <span className='ml-1 bg-green-500 text-white rounded-full px-2'>
+                      {cartCount}
+                    </span>
+                  )}
                 </Link>
-                
               ))}
             </ul>
           </div>
@@ -57,16 +66,22 @@ export const Header = () => {
           <div className='md:hidden mt-4 bg-white rounded-lg shadow-xl p-4 absolute right-4 left-4 z-10'>
             <ul className='flex flex-col gap-4 font-medium text-gray-700'>
               {["Help", "SignIn", "Cart"].map((item, index) => (
-                 <Link
-                 key={item}
-                 to={`/${item.toLowerCase()}`}
-                 className='hover:text-orange-500 transition-colors duration-300 flex items-center cursor-pointer'
-               >
-                 {[FaQuestionCircle, FaSignInAlt, FaCartArrowDown][index]({
-                   className: "mr-2",
-                 })}
-                 {item}
-               </Link>
+                <Link
+                  key={item}
+                  to={`/${item.toLowerCase()}`}
+                  className='hover:text-orange-500 transition-colors duration-300 flex items-center cursor-pointer'
+                >
+                  {[FaQuestionCircle, FaSignInAlt, FaCartArrowDown][index]({
+                    className: "mr-2",
+                  })}
+                  {item}
+                  {item === "Cart" &&
+                    cartCount > 0 && ( // Display count if it's greater than 0
+                      <span className='ml-1 bg-green-500 text-white rounded-full px-2'>
+                        {cartCount}
+                      </span>
+                    )}
+                </Link>
               ))}
             </ul>
           </div>
