@@ -16,11 +16,11 @@ const Cart = () => {
 
   return (
     <div className='bg-mainBg h-screen flex flex-col items-center justify-center p-4'>
-      <div className='bg-white max-w-screen-md w-full rounded-lg shadow-lg p-6 overflow-y-auto'> 
+      <div className='bg-mainBg max-w-screen-md w-full  p-6 overflow-y-auto'> 
         <h1 className='text-3xl font-bold text-center mb-4'>Your Cart</h1>
         {hasItems ? (
           <>
-            <div className='cart-buttons flex flex-col md:flex-row justify-center gap-4 mb-4'>
+            <div className='cart-buttons flex flex-col md:flex-row justify-end gap-4 mb-4'>
               <button
                 className='rounded-md bg-blue-400 p-2 text-white hover:bg-blue-500 transition w-full md:w-auto'
                 onClick={handleClear}
