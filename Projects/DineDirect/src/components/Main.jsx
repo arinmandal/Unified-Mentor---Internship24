@@ -17,7 +17,7 @@ export const Main = () => {
     filteredRestaurants = [],
   } = useRestaurantFilter(); // Use custom hook
 
-  const onlineStatus  = useOnlineStatus();
+  const onlineStatus = useOnlineStatus();
 
   if (onlineStatus === false)
     return (
@@ -30,7 +30,7 @@ export const Main = () => {
   const loadingShimmer = Array(12).fill(<ShimmarUI />); // Pre-render shimmer UI
 
   return (
-    <main className='w-full min-h-screen bg-mainBg'>
+    <main className='w-full min-h-screen'>
       <section className='max-w-7xl mx-auto pt-4 px-2 sm:px-6 md:px-8'>
         <div className='relative'>
           <img
@@ -38,7 +38,7 @@ export const Main = () => {
             alt='Delicious food spread'
             className='w-full h-[250px] object-cover rounded-lg shadow-lg'
           />
-          <div className='absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white rounded-lg'>
+          <div className='absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-white rounded-lg'>
             <h1 className='text-4xl sm:text-5xl font-bold mb-4 text-center'>
               Hungry?
             </h1>
@@ -60,24 +60,24 @@ export const Main = () => {
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
           {filteredRestaurants.length === 0
             ? // Display Shimmer UI while loading
-              loadingShimmer.map((shimmer, index) => (
-                <div key={index} className='col-span-1'>
-                  {shimmer}
-                </div>
-              ))
+            loadingShimmer.map((shimmer, index) => (
+              <div key={index} className='col-span-1'>
+                {shimmer}
+              </div>
+            ))
             : // Display actual restaurant cards when data is loaded
-              filteredRestaurants.map(restaurant => (
-                <Link
-                  to={"/restaurants/" + restaurant.info.id}
+            filteredRestaurants.map(restaurant => (
+              <Link
+                to={"/restaurants/" + restaurant.info.id}
+                key={restaurant.info.id}
+                className='block'
+              >
+                <RestaurantCard
                   key={restaurant.info.id}
-                  className='block'
-                >
-                  <RestaurantCard
-                    key={restaurant.info.id}
-                    {...restaurant.info}
-                  />
-                </Link>
-              ))}
+                  {...restaurant.info}
+                />
+              </Link>
+            ))}
         </div>
       </section>
       <Footer />
