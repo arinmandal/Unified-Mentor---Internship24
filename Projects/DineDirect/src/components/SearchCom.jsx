@@ -18,7 +18,7 @@ const SearchCom = ({ onSearch }) => {
           placeholder='Search for restaurants...'
           value={searchText}
           onChange={InputChanges}
-          className='text-black w-full sm:flex-grow px-4 py-2 rounded-lg sm:rounded-l-lg sm:rounded-r-none border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 mb-2 sm:mb-0'
+          className='text-white text-xl w-full sm:flex-grow px-4 py-2 rounded-lg sm:rounded-l-lg sm:rounded-r-none border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 mb-2 sm:mb-0'
         />
         <button
           className='w-full sm:w-auto bg-orange-500 text-white py-2 px-4 rounded-lg sm:rounded-l-none sm:rounded-r-lg hover:bg-orange-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50'
