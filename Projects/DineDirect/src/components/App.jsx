@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 const App = () => {
   return (
     <Provider store={appStore}>
-      <div className='App bg-mainBg'>
+      <div className='App bg-[var(--mainBG)]'>
         <Header />
         <Outlet />
       </div>

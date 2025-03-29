@@ -3,7 +3,7 @@ export const SignIn = () => {
   const navigate = useNavigate()
   return (
     <>
-      <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-mainBg">
+      <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h1
             className='text-center text-2xl sm:text-3xl font-bold text-orange-500 hover:cursor-pointer'
